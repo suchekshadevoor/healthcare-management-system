@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="form-container">
+<h2>Book {{ hospital }}</h2>
+
+<form method="POST" action="/submit_booking">
+<input type="hidden" name="hospital" value="{{ hospital }}">
+
+<select name="service">
+<option>Bed</option>
+<option>Oxygen</option>
+<option>Doctor</option>
+</select>
+
+<button>Confirm</button>
+</form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+<section class="hero">
+    <div class="hero-card">
+        <div>
+            <span class="eyebrow">Healthcare Availability System</span>
+            <h1>Find hospitals with open beds, doctors, and emergency services in seconds.</h1>
+            <p>Search, filter, and manage nearby healthcare availability with real-time dashboard tools.</p>
+            <div class="hero-actions">
+                <a class="button button-primary" href="{{ url_for('dashboard') }}">View Hospitals</a>
+                <a class="button button-secondary" href="{{ url_for('signup') }}">Create Account</a>
+            </div>
+        </div>
+        <div class="hero-panel">
+            <div class="metric-card">
+                <span>150+</span>
+                <p>Hospital locations</p>
+            </div>
+            <div class="metric-card">
+                <span>24/7</span>
+                <p>Emergency monitoring</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="feature-grid">
+    <article class="feature-card">
+        <h3>Live availability</h3>
+        <p>Filter hospitals by beds, doctors, and emergency readiness instantly.</p>
+    </article>
+    <article class="feature-card">
+        <h3>Admin controls</h3>
+        <p>Authorized staff can update availability and add new hospitals.</p>
+    </article>
+    <article class="feature-card">
+        <h3>Secure login</h3>
+        <p>User accounts with password hashing and session-based access.</p>
+    </article>
+</section>
+{% endblock %}

@@ -1,0 +1,31 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+<section class="dashboard-page" data-page="dashboard" data-admin="{{ 'true' if is_admin else 'false' }}">
+    <div class="dashboard-panel">
+        <div class="dashboard-header">
+            <div>
+                <p class="eyebrow">Hospital Dashboard</p>
+                <h1>Manage availability across all locations</h1>
+            </div>
+            <div class="dashboard-actions">
+                <input id="searchHospital" type="search" placeholder="Search hospitals or city">
+                <button id="resetFilters" class="button button-secondary">Reset filters</button>
+            </div>
+        </div>
+        <div class="filters-row">
+            <label><input type="checkbox" id="bedsOnly"> Has beds</label>
+            <label><input type="checkbox" id="doctorsOnly"> Has doctors</label>
+            <label><input type="checkbox" id="emergencyOnly"> Emergency available</label>
+        </div>
+        <div class="stats-row">
+            <div class="stat-card"><span id="statHospitals">0</span><p>Hospitals</p></div>
+            <div class="stat-card"><span id="statBeds">0</span><p>Beds available</p></div>
+            <div class="stat-card"><span id="statDoctors">0</span><p>Doctors available</p></div>
+            <div class="stat-card"><span id="statEmergency">0</span><p>Emergency units</p></div>
+        </div>
+        <div id="loadingState" class="loading-panel hidden">Loading hospital data…</div>
+        <div id="dashboardEmpty" class="empty-state hidden">No hospitals match your filters.</div>
+        <div id="hospitalGrid" class="hospital-grid"></div>
+    </div>
+</section>
+{% endblock %}
