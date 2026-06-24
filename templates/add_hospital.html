@@ -1,22 +1,9 @@
-﻿{% extends 'base.html' %}
+{% extends "base.html" %}
+{% block title %}Add Hospital - CareConnect{% endblock %}
 {% block content %}
-<section class="admin-page">
-    <div class="admin-card">
-        <h2>Add New Hospital</h2>
-        <p>Create a new hospital entry with beds, doctors, and emergency status.</p>
-        <form method="POST" class="admin-form">
-            <label>Hospital name</label>
-            <input type="text" name="name" placeholder="Hospital name" required>
-            <label>Location</label>
-            <input type="text" name="location" placeholder="City or district" required>
-            <label>Beds available</label>
-            <input type="number" name="beds" placeholder="0" min="0" value="0" required>
-            <label>Doctors available</label>
-            <input type="number" name="doctors" placeholder="0" min="0" value="0" required>
-            <label>Emergency units</label>
-            <input type="number" name="emergency" placeholder="0" min="0" value="0" required>
-            <button type="submit" class="button button-primary">Add Hospital</button>
-        </form>
-    </div>
+<section class="page-header">
+    <h1>Add Hospital</h1>
+    <p>This page is kept for compatibility. Use the full admin panel for hospital, doctor, and availability management.</p>
+    <a class="btn" href="{{ url_for('admin_panel') }}">Open Admin Panel</a>
 </section>
 {% endblock %}

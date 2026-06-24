@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Appointments - CareConnect{% endblock %}
+{% block content %}
+<section class="page-header">
+    <p class="eyebrow" data-i18n="appointments">Appointments</p>
+    <h1 data-i18n="appointment_booking">Appointment Booking</h1>
+    <p data-i18n="appointment_subtitle">Select hospital, doctor, date, and time. Booked slots cannot be duplicated.</p>
+</section>
+
+<section class="dashboard-grid">
+    <form class="panel form-panel" method="post">
+        <h2 data-i18n="book_appointment">Book Appointment</h2>
+        <label data-i18n="select_hospital">Select Hospital</label>
+        <select id="hospitalSelect" name="hospital_id" required>
+            <option value="">Choose hospital</option>
+            {% for hospital in hospitals %}
+                <option value="{{ hospital.id }}" {% if request.args.get('hospital_id')|int == hospital.id %}selected{% endif %}>{{ hospital.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label data-i18n="select_doctor">Select Doctor</label>
+        <select id="doctorSelect" name="doctor_id" required data-selected="{{ request.args.get('doctor_id', '') }}">
+            <option value="">Choose doctor</option>
+            {% for doctor in doctors %}
+                <option value="{{ doctor.id }}" data-hospital="{{ doctor.hospital_id }}" {% if request.args.get('doctor_id')|int == doctor.id %}selected{% endif %}>
+                    {{ doctor.name }} - {{ doctor.specialization }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label data-i18n="date">Date</label>
+        <input type="date" name="appointment_date" required>
+
+        <label data-i18n="time">Time</label>
+        <input type="time" name="appointment_time" required>
+
+        <button class="btn full" type="submit" data-i18n="confirm_booking">Confirm Booking</button>
+    </form>
+
+    <article class="panel">
+        <h2 data-i18n="booking_history">Booking History</h2>
+        {% if appointments %}
+        <div class="mini-list">
+            {% for appointment in appointments %}
+            <a>
+                <strong>{{ appointment.doctor_name }}</strong>
+                <span>{{ appointment.hospital_name }}</span>
+                <span>{{ appointment.appointment_date }} at {{ appointment.appointment_time }} - {{ appointment.status }}</span>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+            <p class="empty">No appointments booked yet.</p>
+        {% endif %}
+    </article>
+</section>
+{% endblock %}

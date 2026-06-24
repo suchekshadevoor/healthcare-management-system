@@ -1,21 +1,19 @@
 {% extends "base.html" %}
+{% block title %}Book Appointment - CareConnect{% endblock %}
 {% block content %}
-
-<div class="form-container">
-<h2>Book {{ hospital }}</h2>
-
-<form method="POST" action="/submit_booking">
-<input type="hidden" name="hospital" value="{{ hospital }}">
-
-<select name="service">
-<option>Bed</option>
-<option>Oxygen</option>
-<option>Doctor</option>
-</select>
-
-<button>Confirm</button>
-</form>
-
-</div>
-
+<section class="auth-shell">
+    <form class="auth-card" method="post">
+        <p class="eyebrow">Appointment</p>
+        <h1 data-i18n="book_appointment">Book Appointment</h1>
+        <div class="doctor-summary">
+            <strong>{{ doctor.name }}</strong>
+            <span>{{ doctor.specialization }} - {{ doctor.hospital_name }}</span>
+            <span>{{ doctor.available_days }} | {{ doctor.available_time }}</span>
+        </div>
+        <label>Date<input type="date" name="appointment_date" required></label>
+        <label>Time<input type="time" name="appointment_time" required></label>
+        <label>Reason<textarea name="reason" rows="4" placeholder="Briefly describe your concern"></textarea></label>
+        <button class="btn full" type="submit" data-i18n="book_appointment">Book Appointment</button>
+    </form>
+</section>
 {% endblock %}

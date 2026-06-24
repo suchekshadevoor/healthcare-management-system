@@ -1,31 +1,40 @@
-﻿{% extends 'base.html' %}
+{% extends "base.html" %}
+{% block title %}Dashboard - CareConnect{% endblock %}
 {% block content %}
-<section class="dashboard-page" data-page="dashboard" data-admin="{{ 'true' if is_admin else 'false' }}">
-    <div class="dashboard-panel">
-        <div class="dashboard-header">
-            <div>
-                <p class="eyebrow">Hospital Dashboard</p>
-                <h1>Manage availability across all locations</h1>
-            </div>
-            <div class="dashboard-actions">
-                <input id="searchHospital" type="search" placeholder="Search hospitals or city">
-                <button id="resetFilters" class="button button-secondary">Reset filters</button>
-            </div>
-        </div>
-        <div class="filters-row">
-            <label><input type="checkbox" id="bedsOnly"> Has beds</label>
-            <label><input type="checkbox" id="doctorsOnly"> Has doctors</label>
-            <label><input type="checkbox" id="emergencyOnly"> Emergency available</label>
-        </div>
-        <div class="stats-row">
-            <div class="stat-card"><span id="statHospitals">0</span><p>Hospitals</p></div>
-            <div class="stat-card"><span id="statBeds">0</span><p>Beds available</p></div>
-            <div class="stat-card"><span id="statDoctors">0</span><p>Doctors available</p></div>
-            <div class="stat-card"><span id="statEmergency">0</span><p>Emergency units</p></div>
-        </div>
-        <div id="loadingState" class="loading-panel hidden">Loading hospital data…</div>
-        <div id="dashboardEmpty" class="empty-state hidden">No hospitals match your filters.</div>
-        <div id="hospitalGrid" class="hospital-grid"></div>
+<section class="page-header">
+    <p class="eyebrow" data-i18n="dashboard">Dashboard</p>
+    <h1>Welcome, {{ current_user.name }}</h1>
+    <p data-i18n="dashboard_subtitle">Manage hospital search, doctors, appointments, maps, and basic healthcare help.</p>
+</section>
+
+<section class="stat-grid dashboard-stats">
+    <article><strong>{{ stats.hospitals }}</strong><span data-i18n="hospitals">Hospitals</span></article>
+    <article><strong>{{ stats.doctors }}</strong><span data-i18n="doctors">Doctors</span></article>
+    <article><strong>{{ stats.appointments }}</strong><span data-i18n="appointments">Appointments</span></article>
+    <article><strong>{{ stats.beds }}</strong><span data-i18n="beds_available">Beds Available</span></article>
+</section>
+
+<section class="section">
+    <div class="section-heading">
+        <h2 data-i18n="quick_actions">Quick Actions</h2>
     </div>
+    <div class="feature-grid">
+        <a class="feature-card" href="{{ url_for('hospitals') }}"><span>01</span><h3 data-i18n="hospitals">Hospitals</h3><p>Filter Government and Private hospitals from SQLite.</p></a>
+        <a class="feature-card" href="{{ url_for('doctors') }}"><span>02</span><h3 data-i18n="doctors">Doctors</h3><p>View doctors linked to hospitals.</p></a>
+        <a class="feature-card" href="{{ url_for('appointments') }}"><span>03</span><h3 data-i18n="appointments">Appointments</h3><p>Book a doctor appointment.</p></a>
+        <a class="feature-card" href="{{ url_for('map_view') }}"><span>04</span><h3 data-i18n="map">Map</h3><p>See hospital markers using latitude and longitude.</p></a>
+    </div>
+</section>
+
+<section class="card-grid">
+    {% for hospital in hospitals %}
+    <article class="data-card">
+        <span class="badge">{{ hospital.type }}</span>
+        <h2>{{ hospital.name }}</h2>
+        <p>{{ hospital.city }}</p>
+        <p><strong>{{ hospital.beds_available }}</strong> beds available</p>
+        <p>Oxygen: {{ hospital.oxygen_available }}</p>
+    </article>
+    {% endfor %}
 </section>
 {% endblock %}

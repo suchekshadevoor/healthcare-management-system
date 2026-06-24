@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Admin - CareConnect{% endblock %}
+{% block content %}
+<section class="page-header">
+    <p class="eyebrow" data-i18n="nav_admin">Admin</p>
+    <h1>Management Panel</h1>
+    <p>Add hospitals, add doctors, and update live bed and oxygen availability.</p>
+</section>
+
+<section class="admin-grid">
+    <form class="panel form-panel" method="post">
+        <input type="hidden" name="action" value="hospital">
+        <h2>Add Hospital</h2>
+        <label>Name<input name="name" required></label>
+        <label>Type<select name="type"><option>Government</option><option>Private</option></select></label>
+        <label>Location<input name="location" required></label>
+        <label>Contact<input name="contact" required></label>
+        <div class="two-cols">
+            <label>Total beds<input type="number" name="total_beds" min="0" value="0"></label>
+            <label>Available beds<input type="number" name="available_beds" min="0" value="0"></label>
+        </div>
+        <div class="two-cols">
+            <label>Latitude<input type="number" step="any" name="latitude" value="0"></label>
+            <label>Longitude<input type="number" step="any" name="longitude" value="0"></label>
+        </div>
+        <label class="check"><input type="checkbox" name="oxygen_available" checked> Oxygen available</label>
+        <button class="btn full" type="submit">Save Hospital</button>
+    </form>
+
+    <form class="panel form-panel" method="post">
+        <input type="hidden" name="action" value="doctor">
+        <h2>Add Doctor</h2>
+        <label>Name<input name="name" required></label>
+        <label>Specialization<input name="specialization" required></label>
+        <label>Phone<input name="phone" required></label>
+        <label>Hospital<select name="hospital_id">{% for hospital in hospitals %}<option value="{{ hospital.id }}">{{ hospital.name }}</option>{% endfor %}</select></label>
+        <label>Available days<input name="available_days" value="Mon-Sat"></label>
+        <label>Available time<input name="available_time" value="09:00-17:00"></label>
+        <button class="btn full" type="submit">Save Doctor</button>
+    </form>
+
+    <form class="panel form-panel" method="post">
+        <input type="hidden" name="action" value="availability">
+        <h2>Update Availability</h2>
+        <label>Hospital<select name="hospital_id">{% for hospital in hospitals %}<option value="{{ hospital.id }}">{{ hospital.name }}</option>{% endfor %}</select></label>
+        <label>Total beds<input type="number" name="total_beds" min="0" value="0"></label>
+        <label>Available beds<input type="number" name="available_beds" min="0" value="0"></label>
+        <label class="check"><input type="checkbox" name="oxygen_available" checked> Oxygen available</label>
+        <button class="btn full" type="submit">Update Status</button>
+    </form>
+</section>
+
+<section class="panel">
+    <h2>Doctors</h2>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Name</th><th>Specialization</th><th>Hospital</th><th>Availability</th><th>Actions</th></tr></thead>
+            <tbody>
+            {% for doctor in doctors %}
+            <tr>
+                <td>
+                    <form id="doctor-update-{{ doctor.id }}" method="post" action="{{ url_for('update_doctor', doctor_id=doctor.id) }}"></form>
+                    <input form="doctor-update-{{ doctor.id }}" name="name" value="{{ doctor.name }}" required>
+                </td>
+                <td><input form="doctor-update-{{ doctor.id }}" name="specialization" value="{{ doctor.specialization }}" required></td>
+                <td>
+                    <select form="doctor-update-{{ doctor.id }}" name="hospital_id">
+                        {% for hospital in hospitals %}
+                            <option value="{{ hospital.id }}" {% if hospital.id == doctor.hospital_id %}selected{% endif %}>{{ hospital.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <input form="doctor-update-{{ doctor.id }}" name="phone" value="{{ doctor.phone }}" aria-label="Phone">
+                </td>
+                <td>
+                    <input form="doctor-update-{{ doctor.id }}" name="available_days" value="{{ doctor.available_days }}" aria-label="Available days">
+                    <input form="doctor-update-{{ doctor.id }}" name="available_time" value="{{ doctor.available_time }}" aria-label="Available time">
+                </td>
+                <td>
+                    <button class="text-button" form="doctor-update-{{ doctor.id }}" type="submit">Update</button>
+                    <form method="post" action="{{ url_for('delete_doctor', doctor_id=doctor.id) }}"><button class="text-button danger" type="submit">Delete</button></form>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

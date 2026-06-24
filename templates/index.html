@@ -1,40 +1,40 @@
-﻿{% extends 'base.html' %}
+{% extends "base.html" %}
+{% block title %}CareConnect - Healthcare Management{% endblock %}
 {% block content %}
 <section class="hero">
-    <div class="hero-card">
-        <div>
-            <span class="eyebrow">Healthcare Availability System</span>
-            <h1>Find hospitals with open beds, doctors, and emergency services in seconds.</h1>
-            <p>Search, filter, and manage nearby healthcare availability with real-time dashboard tools.</p>
-            <div class="hero-actions">
-                <a class="button button-primary" href="{{ url_for('dashboard') }}">View Hospitals</a>
-                <a class="button button-secondary" href="{{ url_for('signup') }}">Create Account</a>
-            </div>
+    <div class="hero-copy">
+        <p class="eyebrow" data-i18n="hero_eyebrow">Healthcare Management System</p>
+        <h1 data-i18n="hero_title">Find care, book doctors, and check hospital availability faster.</h1>
+        <p data-i18n="hero_text">A complete web app for hospitals, appointments, beds, oxygen status, maps, and health support.</p>
+        <div class="hero-actions">
+            <a class="btn" data-i18n="find_hospitals" href="{{ url_for('hospitals') }}">Find Hospitals</a>
+            <a class="btn secondary" data-i18n="book_doctor" href="{{ url_for('doctors') }}">Book Doctor</a>
         </div>
-        <div class="hero-panel">
-            <div class="metric-card">
-                <span>150+</span>
-                <p>Hospital locations</p>
-            </div>
-            <div class="metric-card">
-                <span>24/7</span>
-                <p>Emergency monitoring</p>
-            </div>
+    </div>
+    <div class="hero-panel">
+        <div class="pulse-card">
+            <span class="status-dot"></span>
+            <p data-i18n="live_status">Live healthcare status</p>
+            <strong>{{ stats.beds }} beds available</strong>
+        </div>
+        <div class="stat-grid">
+            <article><strong>{{ stats.hospitals }}</strong><span data-i18n="hospitals">Hospitals</span></article>
+            <article><strong>{{ stats.doctors }}</strong><span data-i18n="doctors">Doctors</span></article>
+            <article><strong>{{ stats.beds }}</strong><span data-i18n="beds">Beds</span></article>
         </div>
     </div>
 </section>
-<section class="feature-grid">
-    <article class="feature-card">
-        <h3>Live availability</h3>
-        <p>Filter hospitals by beds, doctors, and emergency readiness instantly.</p>
-    </article>
-    <article class="feature-card">
-        <h3>Admin controls</h3>
-        <p>Authorized staff can update availability and add new hospitals.</p>
-    </article>
-    <article class="feature-card">
-        <h3>Secure login</h3>
-        <p>User accounts with password hashing and session-based access.</p>
-    </article>
+
+<section class="section">
+    <div class="section-heading">
+        <p class="eyebrow" data-i18n="modules">Modules</p>
+        <h2 data-i18n="what_you_can_do">What you can do</h2>
+    </div>
+    <div class="feature-grid">
+        <article class="feature-card"><span>01</span><h3>Authentication</h3><p>Register, login, and manage secure user sessions.</p></article>
+        <article class="feature-card"><span>02</span><h3>Doctor Booking</h3><p>Browse specialists and prevent duplicate appointment slots.</p></article>
+        <article class="feature-card"><span>03</span><h3>Hospital Tracking</h3><p>View government/private hospitals, beds, and oxygen status.</p></article>
+        <article class="feature-card"><span>04</span><h3>Maps and Chatbot</h3><p>Navigate to hospitals and ask basic healthcare questions.</p></article>
+    </div>
 </section>
 {% endblock %}

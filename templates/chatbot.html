@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Chatbot - CareConnect{% endblock %}
+{% block content %}
+<section class="chat-shell">
+    <div class="page-header compact">
+        <p class="eyebrow" data-i18n="chatbot">Chatbot</p>
+        <h1 data-i18n="chatbot_title">Healthcare Chatbot</h1>
+        <p data-i18n="chatbot_subtitle">Basic placeholder chatbot with static responses.</p>
+    </div>
+    <div class="chat-card">
+        <div id="chatMessages" class="chat-messages">
+            <div class="bot-message">Hello! How can I help you?</div>
+        </div>
+        <form id="chatForm" class="chat-form">
+            <input id="chatInput" type="text" placeholder="Type hello, hospital, appointment..." required>
+            <button class="btn small" type="submit" data-i18n="send">Send</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

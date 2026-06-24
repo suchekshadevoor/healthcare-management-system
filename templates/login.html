@@ -1,16 +1,22 @@
-﻿{% extends 'base.html' %}
+{% extends "base.html" %}
+{% block title %}Login - CareConnect{% endblock %}
 {% block content %}
-<section class="auth-page">
-    <div class="auth-card">
-        <h2>Login to your account</h2>
-        <form method="POST" class="auth-form">
-            <label>Email</label>
-            <input type="email" name="email" placeholder="Email" required>
-            <label>Password</label>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit" class="button button-primary">Login</button>
-        </form>
-        <p class="small-note">New user? <a href="{{ url_for('signup') }}">Create an account</a></p>
-    </div>
+<section class="auth-shell">
+    <form class="auth-card" method="post">
+        <div class="auth-logo">+</div>
+        <p class="eyebrow">Healthcare Management System</p>
+        <h1 data-i18n="login">Login</h1>
+        <label data-i18n="email">Email</label>
+        <input type="email" name="email" placeholder="demo@care.com" required>
+        <label data-i18n="password">Password</label>
+        <input type="password" name="password" placeholder="Demo@123" required>
+        <button class="btn full" type="submit" data-i18n="login">Login</button>
+        <p class="muted">Demo account: demo@care.com / Demo@123</p>
+        <p><span data-i18n="no_account">Don't have an account?</span> <a href="{{ url_for('register') }}" data-i18n="register">Register</a></p>
+        <select id="languageSelect" class="language-select centered" aria-label="Language">
+            <option value="en">English</option>
+            <option value="kn">ಕನ್ನಡ</option>
+        </select>
+    </form>
 </section>
 {% endblock %}

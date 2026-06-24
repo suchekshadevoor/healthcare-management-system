@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Map - CareConnect{% endblock %}
+{% block content %}
+<section class="page-header">
+    <p class="eyebrow" data-i18n="map">Map</p>
+    <h1 data-i18n="hospital_map">Hospital Map</h1>
+    <p data-i18n="map_subtitle">Leaflet markers use latitude and longitude stored in SQLite.</p>
+</section>
+
+<section class="map-layout">
+    <div id="leafletMap" class="map-box" data-hospitals='[{% for h in hospitals %}{"name":{{ h.name|tojson }},"type":{{ h.type|tojson }},"city":{{ h.city|tojson }},"beds":{{ h.beds_available }},"oxygen":{{ h.oxygen_available|tojson }},"lat":{{ h.latitude }},"lng":{{ h.longitude }}}{% if not loop.last %},{% endif %}{% endfor %}]'></div>
+    <aside class="panel">
+        <h2 data-i18n="hospitals">Hospitals</h2>
+        <div class="mini-list">
+            {% for hospital in hospitals %}
+            <a target="_blank" href="https://www.google.com/maps?q={{ hospital.latitude }},{{ hospital.longitude }}">
+                <strong>{{ hospital.name }}</strong>
+                <span>{{ hospital.city }} - {{ hospital.beds_available }} beds</span>
+            </a>
+            {% endfor %}
+        </div>
+    </aside>
+</section>
+{% endblock %}

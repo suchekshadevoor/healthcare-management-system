@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Hospitals - CareConnect{% endblock %}
+{% block content %}
+<section class="page-header">
+    <p class="eyebrow" data-i18n="hospitals">Hospitals</p>
+    <h1 data-i18n="hospital_management">Hospital Management</h1>
+    <p data-i18n="hospital_subtitle">Data is fetched dynamically from SQLite after CSV import.</p>
+    <form class="filters" method="get">
+        <select name="type">
+            <option value="" data-i18n="all_hospitals">All Hospitals</option>
+            <option value="Government" {% if selected_type == "Government" %}selected{% endif %}>Government</option>
+            <option value="Private" {% if selected_type == "Private" %}selected{% endif %}>Private</option>
+        </select>
+        <button class="btn small" type="submit" data-i18n="filter">Filter</button>
+    </form>
+</section>
+
+<section class="card-grid">
+    {% for hospital in hospitals %}
+    <article class="data-card">
+        <div class="card-top">
+            <span class="badge">{{ hospital.type }}</span>
+            <span class="oxygen {{ 'ok' if hospital.oxygen_available == 'Yes' else 'low' }}">Oxygen: {{ hospital.oxygen_available }}</span>
+        </div>
+        <h2>{{ hospital.name }}</h2>
+        <p><strong data-i18n="city">City</strong>: {{ hospital.city }}</p>
+        <p>{{ hospital.address }}</p>
+        <dl class="metric-row">
+            <div><dt data-i18n="beds_available">Beds Available</dt><dd>{{ hospital.beds_available }}</dd></div>
+        </dl>
+    </article>
+    {% else %}
+        <p class="empty">No hospitals found.</p>
+    {% endfor %}
+</section>
+{% endblock %}

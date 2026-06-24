@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Doctors - CareConnect{% endblock %}
+{% block content %}
+<section class="page-header">
+    <p class="eyebrow" data-i18n="doctors">Doctors</p>
+    <h1 data-i18n="doctor_management">Doctor Management</h1>
+    <p data-i18n="doctor_subtitle">Doctors are linked to hospitals through the database.</p>
+</section>
+
+<section class="card-grid">
+    {% for doctor in doctors %}
+    <article class="data-card">
+        <span class="avatar">{{ doctor.name[0] }}</span>
+        <h2>{{ doctor.name }}</h2>
+        <p><strong data-i18n="specialization">Specialization</strong>: {{ doctor.specialization }}</p>
+        <p><strong data-i18n="experience">Experience</strong>: {{ doctor.experience }} years</p>
+        <p><strong data-i18n="availability">Availability</strong>: {{ doctor.availability }}</p>
+        <p><strong>Hospital</strong>: {{ doctor.hospital_name }}</p>
+        <a class="btn small" href="{{ url_for('appointments', doctor_id=doctor.id, hospital_id=doctor.hospital_id) }}" data-i18n="book_now">Book Now</a>
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}
